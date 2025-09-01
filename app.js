@@ -1,4 +1,4 @@
-// --- Book Data ---
+
 let books = [
   { id: 1, title: "Death on the Nile", author: "Agatha Christie", category: "Mystery", available: true, cover: "https://m.media-amazon.com/images/I/81sFKDbcOcL._UF1000,1000_QL80_.jpg", pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" },
   { id: 2, title: "The Silent Patient", author: "Alex Michaelides", category: "Thriller", available: true, cover: "https://m.media-amazon.com/images/I/81JJPDNlxSL.jpg", pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" },
@@ -6,7 +6,7 @@ let books = [
   { id: 4, title: "Diary of a Wimpy Kid", author: "Jeff Kinney", category: "Comedy", available: true, cover: "https://m.media-amazon.com/images/I/91Iw953zmOL.jpg", pdfUrl: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" }
 ];
 
-// --- LocalStorage state ---
+
 let users = JSON.parse(localStorage.getItem("users")) || [];
 let loans = JSON.parse(localStorage.getItem("loans")) || [];
 let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -19,7 +19,7 @@ function saveData() {
   localStorage.setItem("currentUser", JSON.stringify(currentUser));
 }
 
-// --- Page navigation ---
+
 function showPage(id) {
   document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
@@ -28,7 +28,7 @@ function showPage(id) {
   if (id === "home") renderCarousel();
 }
 
-// --- Auth ---
+
 function register() {
   const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
@@ -57,7 +57,7 @@ function login() {
   showPage("catalog");
 }
 
-// --- Catalog ---
+
 function renderCatalog() {
   let sort = document.getElementById("sort")?.value || "";
   let sortedBooks = [...books];
@@ -83,7 +83,7 @@ function renderCatalog() {
   `).join("");
 }
 
-// --- Carousel (Home Featured) ---
+
 function renderCarousel() {
   const container = document.getElementById("carousel");
   const featuredBooks = books.slice(0, 4);
@@ -98,7 +98,6 @@ function renderCarousel() {
   `).join("");
 }
 
-// --- Borrow / Return / Renew ---
 function borrow(id) {
   if (!currentUser) return alert("⚠️ Login first!");
   const book = books.find(b => b.id === id);
@@ -124,14 +123,14 @@ function renewBook(id) {
   alert("🔄 Renewed! (simulated, +15 days)");
 }
 
-// --- Favorites ---
+
 function addFavorite(id) {
   if (!favorites.includes(id)) favorites.push(id);
   saveData(); renderDashboard();
   alert("❤️ Added to favorites");
 }
 
-// --- Dashboard ---
+
 function renderDashboard() {
   if (!currentUser) return alert("⚠️ Login first!");
   const userLoans = loans.filter(l => l.userId === currentUser.id && !l.returned);
@@ -157,7 +156,7 @@ function renderDashboard() {
   `;
 }
 
-// --- PDF Modal ---
+
 function readBook(id) {
   const book = books.find(b => b.id === id);
   document.getElementById("pdfFrame").src = book.pdfUrl;
@@ -165,6 +164,7 @@ function readBook(id) {
 }
 function closeModal() { document.getElementById("pdfModal").classList.add("hidden"); }
 
-// Init
+
 renderCarousel();
 renderCatalog();
+
